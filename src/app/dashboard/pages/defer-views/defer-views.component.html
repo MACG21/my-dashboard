@@ -1,0 +1,103 @@
+<div class=" bg-cyan-950 px-6 py-24 sm:py-8 lg:px-8">
+  <div class="mx-auto max-w-2x1 text-center">
+    <h2 class="text-3xl font-bold tracking-tight text-teal-900 sm:text-5xl">
+      <span class="text-white">Registro de Clientes</span>
+    </h2>
+    <p class="mt-2 text-lg leading-8 text-gray-600">Control de los clientes agregados.</p>
+  </div>
+
+  <div *ngIf="errorMessage" class="mt-4 bg-red-200 text-red-800 p-3 rounded">
+    {{ errorMessage }}
+  </div>
+
+  <!-- Formulario para crear o editar Clientes -->
+  <form (ngSubmit)="saveCliente()" class="mx-auto mt-16 max-w-xl sm:mt-10">
+    <div class="grid grid-cols-1 gap-x-2 gap-y-3 sm:grid-cols-2">
+      <div>
+        <label for="product-name" class="block text-sm font-semibold leading-6 text-white">Nombre del Cliente</label>
+        <div class="mt-2.5">
+          <input type="text" [(ngModel)]="cliente.nombre" name="cliente-nombre" id="cliente-nombre" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900">
+          <div *ngIf="cliente.nombre === ''" >El campo de nombre no puede quedar vacío.</div>
+        </div>
+      </div>
+
+      <div>
+        <label for="product-code" class="block text-sm font-semibold leading-6 text-white">NIT </label>
+        <div class="mt-2.5">
+          <input type="text" [(ngModel)]="cliente.nit" name="cliente-nit" id="cliente-nit" class = "block w-full rounded-md border-0 px-3.5 py-2 text-gray-900">
+        </div>
+      </div>
+
+      <div>
+        <label for="product-code" class="block text-sm font-semibold leading-6 text-white">DPI </label>
+        <div class="mt-2.5">
+          <input type="text" [(ngModel)]="cliente.cui" name="cliente-cui" id="cliente-cui" class = "block w-full rounded-md border-0 px-3.5 py-2 text-gray-900">
+        </div>
+      </div>
+
+      <div>
+        <label for="product-name" class="block text-sm font-semibold leading-6 text-white">Direccion</label>
+        <div class="mt-2.5">
+          <input type="text" [(ngModel)]="cliente.direccion" name="cliente-direccion" id="cliente-direccion" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900">
+        </div>
+      </div>
+
+      <div class="sm:col-span-2">
+        <label for="product-description" class="block text-sm font-semibold leading-6 text-white">Correo Electrónico</label>
+        <div class="mt-2.5">
+          <input type="text" [(ngModel)]="cliente.correo" name="cliente-email" id="cliente-email" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900">
+        </div>
+      </div>
+
+      <div>
+        <label for="product-code" class="block text-sm font-semibold leading-6 text-white">Notas adicionales</label>
+        <div class="mt-2.5">
+          <input type="text" [(ngModel)]="cliente.notas" name="cliente-notas" id="cliente-notas" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900">
+        </div>
+      </div>
+
+      <!-- Botonos de guardado -->
+
+      <div class="mt-5 flex gap-4">
+        <button type="submit" class="w-30 rounded-md bg-blue-700 px-3.5 py-2.5 text-center text-sm font-semibold text-white">GUARDAR</button>
+
+        <button type="button" (click)="saveCliente()" class="w-30 rounded-md bg-yellow-400 px-3.5 py-2.5 text-center text-sm font-semibold text-white" *ngIf="isEditMode">CANCELAR</button>
+      </div>
+    </div>
+  </form>
+
+  <!-- Listado de clientes ingresados-->
+  <div class="mt-10">
+    <h3 class="text-xl font-black leading-6 text-gray-900">
+      <span class="text-zinc-300">Clientes En sistema</span>
+    </h3>
+    <table class="min-w-full table-auto mt-4 border-collapse border border-gray-950">
+      <thead>
+        <tr class="bg-sky-300">
+          <th class="border border-gray-300 px-4 py-2">Nombre</th>
+          <th class="border border-gray-300 px-4 py-2">NIT</th>
+          <th class="border border-gray-300 px-4 py-2">CUI</th>
+          <th class="border border-gray-300 px-4 py-2">Direccion</th>
+          <th class="border border-gray-300 px-4 py-2">Email</th>
+          <th class="border border-gray-300 px-4 py-2">Notas</th>
+          <th class="border border-gray-300 px-4 py-2">ACCIONES</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let cliente of clientes" class="text-center">
+          <td class="border border-gray-300 px-4 py-2 text-white">{{ cliente.nombre }}</td>
+          <td class="border border-gray-300 px-4 py-2 text-white">{{ cliente.nit }}</td>
+          <td class="border border-gray-300 px-4 py-2 text-white">{{ cliente.cui }}</td>
+          <td class="border border-gray-300 px-4 py-2 text-white">{{ cliente.direccion }}</td>
+          <td class="border border-gray-300 px-4 py-2 text-white">{{ cliente.correo }}</td>
+          <td class="border border-gray-300 px-4 py-2 text-white">{{ cliente.notas }}</td>
+          <td class="border border-gray-300 px-4 py-2 text-white">
+            <button class="text-cyan-200" (click)="editCliente(cliente)">Editar</button>
+            <button class="text-red-500 ml-2" (click)="deleteCliente(cliente.nit)">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>

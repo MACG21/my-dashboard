@@ -1,0 +1,16 @@
+{
+    "workbench.settings.useSplitJSON": false,
+    "workbench.settings.openDefaultSettings": false,
+    "angular-schematics.schematicsDefaultOptions": {
+        "angular-*": {
+            "externalTemplate": true,
+            "inlineStyle": true
+        },
+        "angular-component": {
+            "ngOnInit": true
+        },
+        "angular-page": {
+            "skipNgOnInit": true
+        }
+    }
+}

@@ -1,0 +1,97 @@
+<div class=" bg-blue-400 px-6 py-24 sm:py-8 lg:px-8">
+  <div class="mx-auto max-w-2x1 text-center">
+    <h2 class="text-3xl font-bold tracking-tight text-teal-900 sm:text-5xl">
+      <span class="text-stone-950">Gestion de Usuarios</span>
+    </h2>
+    <p class="mt-2 text-lg leading-8 text-slate-50">Control de Usuarios registrados.</p>
+  </div>
+
+  <div *ngIf="errorMessage" class="mt-4 bg-red-200 text-red-800 p-3 rounded">
+    {{ errorMessage }}
+  </div>
+
+  <!-- Formulario para crear o editar Usuarios -->
+  <form (ngSubmit)="saveUsuario()"  class="mx-auto mt-16 max-w-xl sm:mt-10">
+    <div class="grid grid-cols-1 gap-x-2 gap-y-3 sm:grid-cols-2">
+      <div>
+        <label for="usuario-name" class="block text-sm font-semibold leading-6 text-white">Nombre </label>
+        <div class="mt-2.5">
+          <input type="text"  [(ngModel)] ="usuario.nombre" name="usuario" id="usuario-nombre" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900">
+          <div *ngIf="usuario.nombre === ''">El campo de nombre no puede quedar vacío.</div>
+        </div>
+      </div>
+
+      <div>
+        <label for="usuario-dpi" class="block text-sm font-semibold leading-6 text-white">DPI </label>
+        <div class="mt-2.5">
+          <input type="text" [(ngModel)]="usuario.cui" name="usuario-dpi" id="usuario-dpi" class = "block w-full rounded-md border-0 px-3.5 py-2 text-gray-900">
+        </div>
+      </div>
+
+      <div>
+        <label for="usuario-dir" class="block text-sm font-semibold leading-6 text-white">Direccion</label>
+        <div class="mt-2.5">
+          <input type="text" [(ngModel)]="usuario.direccion" name="usuario-dir" id="usuario-dir" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900">
+        </div>
+      </div>
+
+      <div class="sm:col-span-2">
+        <label for="email-usuario" class="block text-sm font-semibold leading-6 text-white">Correo Electrónico</label>
+        <div class="mt-2.5">
+          <input type="text" [(ngModel)]="usuario.correo" name="usuario-email" id="usuario-email" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900">
+        </div>
+      </div>
+
+ <!-- Campo para solicitar la contraseña -->
+      <div class="sm:col-span-2">
+        <label for="password-usuario" class="block text-sm font-semibold leading-6 text-white">Contraseña</label>
+      <div class="mt-2.5">
+        <input type="twxt" [(ngModel)]="usuario.contrasena" name = "usuario-pssw" id="password" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900">
+      </div>
+      </div>
+
+      <!-- Botones de guardado -->
+
+      <div class="mt-5 flex gap-4">
+        <button type="submit" class="w-30 rounded-md bg-blue-700 px-3.5 py-2.5 text-center text-sm font-semibold text-white">GUARDAR</button>
+
+        <button type="button" (click)="saveUsuario()" class="w-30 rounded-md bg-yellow-400 px-3.5 py-2.5 text-center text-sm font-semibold text-white" *ngIf="isEditMode">CANCELAR</button>
+      </div>
+    </div>
+  </form>
+
+  <!-- Listado de Usuarios Registrados -->
+  <div class="mt-10">
+    <h3 class="text-xl font-black leading-6 text-gray-900">
+      <span class="text-zinc-300">Usuarios Registrados</span>
+    </h3>
+    <table class="min-w-full table-auto mt-4 border-collapse border border-gray-950">
+      <thead>
+        <tr class="bg-sky-300">
+          <th class="border border-gray-300 px-4 py-2">ID</th>
+          <th class="border border-gray-300 px-4 py-2">DPI</th>
+          <th class="border border-gray-300 px-4 py-2">NOMBRE</th>
+          <th class="border border-gray-300 px-4 py-2">Direccion</th>
+          <th class="border border-gray-300 px-4 py-2">Email</th>
+          <th class="border border-gray-300 px-4 py-2">CONTRASEÑA</th>
+          <th class="border border-gray-300 px-4 py-2">ACCIONES</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let usuario of usuarios" class="text-center">
+          <td class="border border-gray-300 px-4 py-2 text-white">{{ usuario.id }}</td>
+          <td class="border border-gray-300 px-4 py-2 text-white">{{ usuario.cui }}</td>
+          <td class="border border-gray-300 px-4 py-2 text-white">{{ usuario.nombre }}</td>
+          <td class="border border-gray-300 px-4 py-2 text-white">{{ usuario.direccion }}</td>
+          <td class="border border-gray-300 px-4 py-2 text-white">{{ usuario.correo }}</td>
+          <td class="border border-gray-300 px-4 py-2 text-white">{{ usuario.contrasena }}</td>
+          <td class="border border-gray-300 px-4 py-2 text-white">
+            <button class="text-cyan-200" (click)="editUsuario(usuario)">Editar</button>
+            <button class="text-red-500 ml-2" (click)="deleteUsuario(usuario.id)">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
